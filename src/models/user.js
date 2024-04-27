@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.belongsTo(models.Role,{
+        foreignKey : 'roleId',
+        onDelete :'CASCADE',
+        as:'user_has_a_role'
+      })
     }
   }
   User.init({
@@ -18,12 +23,19 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique:true
     },
+    roleId:{
+      type: DataTypes.INTEGER,
+    },
     email:  {
       type: DataTypes.STRING,
       unique:true,
       validate:{
         isEmail:true
       }
+    },
+    mobilenumber : {
+        type : DataTypes.ARRAY(DataTypes.STRING(10)),
+
     },
     password:{
       type: DataTypes.STRING,
