@@ -23,6 +23,14 @@ module.exports = {
         //   }
         // }
       },
+      picture : {
+        type : Sequelize.STRING,
+      },
+      verified_email : {
+        type : Sequelize.BOOLEAN,
+        allowNull : false,
+        defaultValue : false
+      },
       roleId:{
         type:Sequelize.INTEGER,
         onDelete:'CASCADE',
@@ -40,14 +48,6 @@ module.exports = {
       email: {
         type: Sequelize.STRING,
         unique:true
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
       }
     });
   },
