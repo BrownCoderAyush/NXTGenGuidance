@@ -1,8 +1,9 @@
-const express = require('express');
+
 const axios = require('axios');
-const router = express.Router();
+const { User }= require("../models/index");
 
 const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI} = require('../config/serverConfig');
+const UserService = require('../service/user.service');
 
 const authInitializer =  (req, res) => {
     const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=profile email`;
@@ -28,8 +29,20 @@ const authCallback = async (req, res) => {
       const { data: profile } = await axios.get('https://www.googleapis.com/oauth2/v1/userinfo', {
         headers: { Authorization: `Bearer ${access_token}` },
       });
+
+
+      const email = profile.email;
+
+      const user = await UserService.getUser({email});
+
+      if(user){
+        
+      }else{
+        
+      }
+
   
-      console.log(profile);
+      console.log(profile, user);
   
       // Code to handle user authentication and retrieval using the profile data
   

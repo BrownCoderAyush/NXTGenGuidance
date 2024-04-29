@@ -37,6 +37,14 @@ module.exports = (sequelize, DataTypes) => {
         type : DataTypes.ARRAY(DataTypes.STRING(10)),
 
     },
+    picture : {
+      type : DataTypes.STRING
+    },
+    verified_email : {
+      type : DataTypes.BOOLEAN,
+      allowNull : false,
+      defaultValue : false
+    },
     password:{
       type: DataTypes.STRING,
       allowNull:false
@@ -45,6 +53,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'User',
+    timestamps : false
   });
   return User;
 };

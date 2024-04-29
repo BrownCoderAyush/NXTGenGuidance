@@ -31,7 +31,8 @@ const prepareAndStartServer = ()=>{
         // const data = await User.findAll({
         //     include:{model : Role , as:'user_has_a_role' }
         // });
-        // console.log(data[0].user_has_a_role.id)
+        // console.log(data[0].user_has_a_role)
+        
     })
 }
 
