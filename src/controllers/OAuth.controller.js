@@ -4,6 +4,7 @@ const { User }= require("../models/index");
 
 const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI} = require('../config/serverConfig');
 const UserService = require('../service/user.service');
+const AuthService = require('../service/auth.service');
 
 const authInitializer =  (req, res) => {
     const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=profile email`;
@@ -34,21 +35,26 @@ const authCallback = async (req, res) => {
       const email = profile.email;
 
       const user = await UserService.getUser({email});
-
+      console.log(user);
       if(user){
-        
+        const token = AuthService.createToken(user.dataValues);
+        res.redirect(`http://localhost:3000/auth/login/success?token=${token}`)
       }else{
-        
+        await UserService.createUser({username: "", roleId: 3, email: profile.email,  picture: profile.picture, password: ""});
+        const user = await UserService.getUser({email});
+        if (!user) {
+          // In this case we will need to redirect to user to frontend and tell them
+          // something went wrong
+          throw "Couldn't create user";
+        }
+        const token = AuthService.createToken(user.dataValues);
+        res.redirect(`http://localhost:3000/auth/login/success?token=${token}`)
       }
 
-  
       console.log(profile, user);
-  
       // Code to handle user authentication and retrieval using the profile data
-  
-      res.redirect('/');
     } catch (error) {
-      console.error('Error:', error.response.data.error);
+      console.error('Error:', error);
       res.redirect('/login');
     }
 }
