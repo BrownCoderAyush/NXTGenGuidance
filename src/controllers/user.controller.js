@@ -15,7 +15,6 @@ const signUp =  async(req,res)=>{
                 picture,
                 roleId : 3
             })
-
         res.status(200).json(
             { 
                 nxtGenStatus : 0,
