@@ -14,14 +14,13 @@ const signUp =  async(req,res)=>{
                 verified_email,
                 picture,
                 roleId : 3
-            })
-
+        })
         res.status(200).json(
             { 
                 nxtGenStatus : 0,
                 user
-            });
-
+            }
+    );
     } catch (err) {
         res.json({
             nxtGenStatus : 1,
@@ -48,6 +47,12 @@ const getUser = async(req,res)=>{
             msg : err.message
         })
     }
+}
+
+const getUserProfile = async(req,res)=>{
+
+
+
 }
 
 module.exports = {

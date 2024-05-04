@@ -16,6 +16,12 @@ module.exports = (sequelize, DataTypes) => {
         onDelete :'CASCADE',
         as:'user_has_a_role'
       })
+
+      User.hasMany(models.Session,{
+        foreignKey:'user_id',
+        as:'user_has_many_session'
+      })
+
     }
   }
   User.init({
@@ -47,7 +53,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     password:{
       type: DataTypes.STRING,
-      allowNull:false
     }
     
   }, {
