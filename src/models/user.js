@@ -25,6 +25,9 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey:'user_id',
         as:'user_has_many_session'
       })
+      User.hasMany(models.Review,{
+        foreignKey : 'user_id'
+      })
 
     }
   }
