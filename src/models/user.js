@@ -16,10 +16,17 @@ module.exports = (sequelize, DataTypes) => {
         onDelete :'CASCADE',
         as:'user_has_a_role'
       })
-
+      User.belongsToMany(models.Skill,{
+        through : 'Userroles',
+        foreignKey : 'userId',
+        as : 'skills'
+      })
       User.hasMany(models.Session,{
         foreignKey:'user_id',
         as:'user_has_many_session'
+      })
+      User.hasMany(models.Review,{
+        foreignKey : 'user_id'
       })
 
     }
