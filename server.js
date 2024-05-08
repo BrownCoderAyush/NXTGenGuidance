@@ -1,13 +1,15 @@
 const express = require ('express')
 const bodyParser = require('body-parser')
 
-const db = require('./src/models/index')
 const app = express()
-const {User,Role} = require('./src/models/index');
+const {User,Role,Session,Skill,Review} = require('./src/models/index');
 
-const { PORT } = require('./src/config/serverConfig')
+const { PORT } = require('./src/config/serverConfig');
 const APIRoutes = require('./src/routes');
-const { where } = require('sequelize');
+const db = require('./src/models/index');
+
+
+
 
 
 const prepareAndStartServer = ()=>{
@@ -32,7 +34,42 @@ const prepareAndStartServer = ()=>{
         //     include:{model : Role , as:'user_has_a_role' }
         // });
         // console.log(data[0].user_has_a_role)
-        
+        // await Session.create({
+        //     user_id : 6,
+        //     time : "2023-04-23T06:00:11.774Z",
+        //     typeOfSession : 'n:m'
+        // })
+
+
+        // await Skill.create({
+        //     name : "Ember.Js"
+        // })
+        // console.log(await User.findAll({}));
+        // const EmberJs = await Skill.findAll({
+        //     where : {
+        //         id : 4
+        //     }
+        // })
+        // const user = await User.findOne({
+        //     where : {
+        //         id : 3
+        //     }
+        //     ,
+        //     include : [
+        //     { 
+        //         model :Skill,
+        //         as : 'skills'
+
+        //     }
+        //     ]
+        // })
+        // user.addSkill(EmberJs);
+        // console.log(user.skills[1].name);
+        // await Review.create({
+        //     userId : 3,
+        //     reviewerId : 1,
+        //     content : "great teacher"
+        // })
     })
 }
 
