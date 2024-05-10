@@ -4,7 +4,7 @@ const RoleService = require("../service/role.service");
 const UserService = require("../service/user.service");
 
 
-const getUserProfile = async (req, res) => {
+const getUserProfile = async (req, res,next) => {
     try {
         const userId = req.params.userId;
         const user = await UserService.getUser({ id: userId });
@@ -16,15 +16,11 @@ const getUserProfile = async (req, res) => {
             role: role.dataValues.roleName
         });
     } catch (err) {
-        res.json({
-            nxtGenStatus: 1,
-            error: err.stack,
-            msg: err.message
-        })
+        next(err);
     }
 }
 
-const getMentorProfile = async (req, res) => {
+const getMentorProfile = async (req, res,next) => {
     try {
         const userId = req.params.userId;
         const user = await UserService.getUser({ id: userId });
@@ -49,8 +45,8 @@ const getMentorProfile = async (req, res) => {
                     createdAt: x.dataValues.createdAt
                 });
             }
-            console.log(reviewData);
-            // console.log(reviews);
+            // console.log(reviewData);
+            // // console.log(reviews);
             return res.json({
                 nxtGenStatus: 0,
                 picture: user.dataValues.picture,
@@ -60,11 +56,7 @@ const getMentorProfile = async (req, res) => {
             });
         }
     } catch (err) {
-        res.json({
-            nxtGenStatus: 1,
-            error: err.stack,
-            msg: err.message
-        })
+        next(err);
     }
 }
 

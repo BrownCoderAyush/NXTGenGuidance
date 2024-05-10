@@ -9,7 +9,14 @@ const APIRoutes = require('./src/routes');
 const db = require('./src/models/index');
 
 
-
+const errorHandlerMiddleware = (err, req, res, next) => {
+    // Handle the error  
+    res.json({
+        nxtGenStatus : 1,
+        error : err.stack,
+        msg : err.message
+    });
+  };
 
 
 const prepareAndStartServer = ()=>{
@@ -18,6 +25,8 @@ const prepareAndStartServer = ()=>{
     app.use(bodyParser.urlencoded({extended:true})); 
     app.use(APIRoutes);
     
+    // error middleware after routes 
+    app.use(errorHandlerMiddleware);
     db.sequelize.sync({alter:true});
 
 

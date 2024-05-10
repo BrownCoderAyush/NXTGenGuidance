@@ -1,4 +1,4 @@
-const {User}=require("../models/index");
+const {User,Role}=require("../models/index");
 class UserService{
 
     static async getUser(queryParams){
