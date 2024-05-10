@@ -11,7 +11,7 @@ const authInitializer = (req, res) => {
   res.redirect(url);
 }
 
-const authCallback = async (req, res) => {
+const authCallback = async (req, res, next) => {
   const { code } = req.query;
 
   try {
@@ -55,9 +55,9 @@ const authCallback = async (req, res) => {
       res.redirect(`http://localhost:3000/auth/login/success?token=${token}`)
     }
     // Code to handle user authentication and retrieval using the profile data
-  } catch (error) {
-    console.error('Error:', error);
+  } catch (err) {
     res.redirect('/login');
+    next(err);
   }
 }
 

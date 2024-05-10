@@ -2,7 +2,7 @@
 const {User} = require('../models/index');
  
 const UserService = require("../service/user.service");
-const signUp =  async(req,res)=>{
+const signUp =  async(req,res,next)=>{
     try {
         const {username,password,email,verified_email,picture} = req.body;
     
@@ -22,15 +22,11 @@ const signUp =  async(req,res)=>{
             }
     );
     } catch (err) {
-        res.json({
-            nxtGenStatus : 1,
-            error : err.stack,
-            msg : err.message
-        })
+        next(err);
     }
 }
 
-const getUser = async(req,res)=>{
+const getUser = async(req,res,next)=>{
     try {
         const userQueryParams = req.body;
         const user = await UserService.getUser(userQueryParams);
@@ -40,20 +36,11 @@ const getUser = async(req,res)=>{
                 user
             });
 
-    } catch (error) {
-        res.json({
-            nxtGenStatus : 1,
-            error : err.stack,
-            msg : err.message
-        })
+    } catch (err) {
+        next(err);
     }
 }
 
-const getUserProfile = async(req,res)=>{
-
-
-
-}
 
 module.exports = {
     signUp,
