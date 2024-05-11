@@ -30,7 +30,7 @@ const signUp =  async(req,res,next)=>{
 const getUser = async(req,res,next)=>{
     try {
         const authToken = req.headers.authorization.replace("Bearer ", "");
-        const user = AuthService.getClaims(authToken);
+        const user = AuthService.verifyToken(authToken);
         return res.json(user);
     } catch (err) {
         next(err);
