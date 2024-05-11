@@ -6,6 +6,10 @@ class AuthService {
         return jwt.verify(jwtToken, secret)
     }
 
+    static getClaims(jwtToken) {
+        return jwt.decode(jwtToken);
+    }
+
     static createToken(claims) {
         console.log(claims);
         return jwt.sign(claims, secret);
