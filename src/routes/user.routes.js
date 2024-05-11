@@ -7,7 +7,7 @@ const router = express.Router();
 
 
 router.post('/signup',signUp);
-router.get('/getUser',getUser);
+router.get('/me',getUser);
 router.get('/:userId', getUserProfile);
 router.get('/mentor/:userId', getMentorProfile);
 

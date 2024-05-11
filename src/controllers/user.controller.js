@@ -1,5 +1,6 @@
 
 const {User} = require('../models/index');
+const AuthService = require('../service/auth.service');
  
 const UserService = require("../service/user.service");
 const signUp =  async(req,res,next)=>{
@@ -28,14 +29,9 @@ const signUp =  async(req,res,next)=>{
 
 const getUser = async(req,res,next)=>{
     try {
-        const userQueryParams = req.body;
-        const user = await UserService.getUser(userQueryParams);
-        res.status(200).json(
-            { 
-                nxtGenStatus : 0,
-                user
-            });
-
+        const authToken = req.headers.authorization.replace("Bearer ", "");
+        const user = AuthService.verifyToken(authToken);
+        return res.json(user);
     } catch (err) {
         next(err);
     }
