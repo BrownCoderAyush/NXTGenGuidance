@@ -25,7 +25,7 @@ const createSession = async (req, res, next) => {
             return;
         }
         const requestBody = req.body;
-        if (SessionService.sessionExistsForTimeAndUser(user.id, requestBody.time)) {
+        if (await SessionService.sessionExistsForTimeAndUser(user.id, requestBody.time)) {
             res.status(409).json({nxtGenStatus: 1, 'error': 'session already exists for that time'});
             return;
         }
