@@ -31,6 +31,11 @@ module.exports = {
         type : Sequelize.ENUM("1-1","1-m","n:m"),
         default : "1-1",
         allowNull : false
+      },
+      status : {
+        type : Sequelize.ENUM('Pending','Completed'),
+        defaultValue : 'Pending',
+        // allowNull : false
       }
 
     });
