@@ -3,7 +3,22 @@ const { Op } = require("sequelize");
 const {Session} = require("../models/index");
 const moment = require("moment");
 
-class SessionService{
+class SessionService {
+
+    static async createSession(sessionData) {
+        const session = Session.create(sessionData);
+
+        return session;
+    }
+
+    static async sessionExistsForTimeAndUser(userId, UTCTimestamp) {
+        const session = this.getSessions({user_id: userId, time: UTCTimestamp});
+
+        if (session)
+            return true;
+        
+        return false;
+    }
 
     static async getSessions(filters){
 
@@ -30,8 +45,6 @@ class SessionService{
         })
         return sessions;
     }
-
-
 }
 
-module.exports = SessionService;
+module.exports = SessionService
