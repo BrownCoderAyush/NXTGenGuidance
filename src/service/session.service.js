@@ -12,9 +12,16 @@ class SessionService {
     }
 
     static async sessionExistsForTimeAndUser(userId, UTCTimestamp) {
-        const session = this.getSessions({user_id: userId, time: UTCTimestamp});
+        const session = await Session.findOne({
+            where: {
+                user_id: userId,
+                time: UTCTimestamp
+            }
+        })
 
-        if (session)
+        console.log(session);
+
+        if (session != null || session != undefined)
             return true;
         
         return false;
