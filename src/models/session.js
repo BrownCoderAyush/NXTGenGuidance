@@ -33,8 +33,13 @@ module.exports = (sequelize, DataTypes) => {
     },
     typeOfSession : {
       type : DataTypes.ENUM("1-1","1-m","n:m"),
-      default : "1-1",
+      defaultValue : "1-1",
       allowNull : false
+    },
+    status:{
+      type : DataTypes.ENUM('Pending','Completed'),
+      defaultValue : 'Pending',
+      // allowNull : false
     }
 
   }, {
