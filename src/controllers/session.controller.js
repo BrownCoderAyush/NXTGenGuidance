@@ -48,22 +48,18 @@ const deleteSession = async (req, res, next) => {
         const authToken = req.headers.authorization.replace("Bearer ", "");
         const user = AuthService.verifyToken(authToken);
         
-        const session = await SessionService.getSession({
-            id: sessionId
-        });
+        const sessionExists = await SessionService.sessionExistsForIdAndUser(
+            sessionId,
+            user.id
+        );
 
-        if (!session) {
+        if (!sessionExists) {
             res.status(404).json({ nxtGenStatus: 1, error: 'session not found' });
             return;
         }
-
-        if (user.id != session.user_id) {
-            res.status(401).json({ nxtGenStatus: 1, error: 'session doesn\'t belong to the user' });
-            return;
-        }
         
-        await session.destroy();
-
+        await SessionService.deleteSession(sessionId);
+        
         res.status(200).json({nxtGenStatus: 0, 'result' : 'success'})
 
     } catch (error) {
