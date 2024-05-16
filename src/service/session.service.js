@@ -27,6 +27,22 @@ class SessionService {
         return false;
     }
 
+    static async sessionExistsForIdAndUser(sessionId, userId) {
+        const session = await Session.findOne({
+            where: {
+                id: sessionId,
+                user_id: userId,
+            }
+        })
+
+        console.log(session);
+
+        if (session != null || session != undefined)
+            return true;
+        
+        return false;
+    }
+
     static async getSessions(filters){
 
         const type = filters.type;
@@ -52,6 +68,16 @@ class SessionService {
         })
         return sessions;
     }
-}
+
+    static async deleteSession(sessionId) {
+        const session = await Session.findOne({
+            where: {
+                id: sessionId
+            }
+        });
+
+        await session.destroy();
+    }
+} 
 
 module.exports = SessionService
