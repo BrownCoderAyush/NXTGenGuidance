@@ -22,7 +22,11 @@ module.exports = (sequelize, DataTypes) => {
     user_id: {     
       type : DataTypes.INTEGER ,
     },
-    time:{
+    startTime:{
+      type : DataTypes.DATE,
+      allowNull : false
+    },
+    endTime:{
       type : DataTypes.DATE,
       allowNull : false
     },
