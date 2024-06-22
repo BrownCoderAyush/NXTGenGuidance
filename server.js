@@ -1,13 +1,15 @@
 const express = require ('express')
 const bodyParser = require('body-parser')
-const moment = require('moment');
 
 const app = express()
-const {User,Role,Session,Skill,Review} = require('./src/models/index');
 
 const { PORT } = require('./src/config/serverConfig');
 const APIRoutes = require('./src/routes');
 const db = require('./src/models/index');
+const expressLogger = require('./src/config/logger');
+
+
+const {User,Role,Session,Skill,Review} = require('./src/models/index');
 const SessionService = require('./src/service/session.service');
 
 
@@ -19,13 +21,16 @@ const errorHandlerMiddleware = (err, req, res, next) => {
         error : err.stack,
         msg : err.message
     });
-  };
+};
 
 
 const prepareAndStartServer = ()=>{
     app.use(bodyParser.json());
 
     app.use(bodyParser.urlencoded({extended:true})); 
+
+    app.use(expressLogger);
+  
     app.use(APIRoutes);
 
     app.use((req, res, next) => {
