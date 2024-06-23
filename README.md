@@ -91,10 +91,10 @@ Used to get the public details of a user identified by the `userID` of the user.
 Response:
 ```json
 {
-    "nxtGenStatus": 0,
-    "picture": "https://lh3.googleusercontent.com/a/ACg8ocLs-MAE9D7WVXu45Uh6ekBx0IANAtl7eXzIvrD2aY7JBSbyyA=s96-c",
-    "username": null,
-    "role": "Mentee"
+    "nxtGenStatus": "INT",
+    "picture": "PROFILE_URL",
+    "username": "String",
+    "role": "Mentor" | "Mentee" | "Admin"
 }
 ```
 
