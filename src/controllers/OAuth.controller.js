@@ -37,8 +37,22 @@ const authCallback = async (req, res, next) => {
     const user = await UserService.getUser({ email });
 
     if (user) {
-      const token = AuthService.createToken(user.dataValues);
-      res.redirect(`http://localhost:3000/auth/login/success?token=${token}`)
+        const {id, username, roleId, email, mobilenumber, picture, verified_email} = user;
+
+        const data = {
+          id,
+          roleId,
+          email,
+          mobilenumber,
+          picture,
+          verified_email
+        }
+
+        data.username = email.substring(0, email.indexOf("@")-1);
+        
+        const token = AuthService.createToken(data);
+        res.redirect(`http://localhost:3000/auth/login/success?token=${token}`);
+
     }else {
       await UserService.createUser({ 
         roleId: 3, 
