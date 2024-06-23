@@ -87,6 +87,16 @@ Used to get the user details of the logged in user. **(CONTAINS SENSITIVE DETAIL
 
 ### GET /user/{userID}
 Used to get the public details of a user identified by the `userID` of the user.
-  
+
+Response:
+```json
+{
+    "nxtGenStatus": 0,
+    "picture": "https://lh3.googleusercontent.com/a/ACg8ocLs-MAE9D7WVXu45Uh6ekBx0IANAtl7eXzIvrD2aY7JBSbyyA=s96-c",
+    "username": null,
+    "role": "Mentee"
+}
+```
+
 ### GET/user/mentor/{userId}
 Used to get the public details of a mentor identified by the `userID` of the mentor. The user must be a mentor for this endpoint to work, if the user is not a mentor a 404 error will be received.
