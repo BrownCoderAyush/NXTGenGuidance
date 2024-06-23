@@ -11,6 +11,7 @@ const expressLogger = require('./src/config/logger');
 
 const {User,Role,Session,Skill,Review} = require('./src/models/index');
 const SessionService = require('./src/service/session.service');
+const devLogger = require('./src/config/devLogger');
 
 
 const errorHandlerMiddleware = (err, req, res, next) => {
@@ -29,7 +30,7 @@ const prepareAndStartServer = ()=>{
 
     app.use(bodyParser.urlencoded({extended:true})); 
 
-    app.use(expressLogger);
+    // app.use(expressLogger);
   
     app.use(APIRoutes);
 
@@ -40,11 +41,12 @@ const prepareAndStartServer = ()=>{
     
     // error middleware after routes 
     app.use(errorHandlerMiddleware);
-    db.sequelize.sync({alter:true});
+    db.sequelize.sync({alter:true, logging:false});
 
 
     app.listen(PORT ,async ()=>{
-    console.log(`Server Started on Port : ${PORT}`);
+    devLogger().info(`express application is running on the port ${PORT}`);
+
     // console.log(await User.create({username : "aaapien", email : "ayushaa@gmail.com", password : "aalaa" , roleId : 4 , mobilenumber:["1234567890","2345678912","23"]}));
         // console.log(await Role.bulkCreate([{roleName : "Admin"},{roleName : "Mentor"},{roleName : "Mentee"}]));
         // await Role.destroy({
